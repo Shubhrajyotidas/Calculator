@@ -20,11 +20,20 @@ public class StringCalculator {
 
        
         int sum = 0;
+        List<Integer> negatives = new ArrayList<>();
         for (String num : numArray) {
             if (!num.isEmpty()) {
                 int number = Integer.parseInt(num);
-                sum += number;
+                if (number < 0) {
+                    negatives.add(number);
+                } else {
+                    sum += number;
+                }
+
             }
+        }
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("negative numbers not allowed " + negatives);
         }
 
         
@@ -41,10 +50,10 @@ public class StringCalculator {
         System.out.println(calculator.add("1\n2,3")); // Output: 6
         System.out.println(calculator.add("//;\n1;2")); // Output: 3
 
-        // try {
-        //     System.out.println(calculator.add("1,-2,3"));
-        // } catch (IllegalArgumentException e) {
-        //     System.out.println(e.getMessage()); // Output: negative numbers not allowed [-2]
-        // }
+        try {
+            System.out.println(calculator.add("1,-2,3"));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage()); // Output: negative numbers not allowed [-2]
+        }
     }
 }
